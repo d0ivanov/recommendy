@@ -1,15 +1,19 @@
+"""Main Recommender module."""
+from json_data_provider import JSONDataProvider
+from euclidean_distance import EuclideanDistance
+
 class Recommender:
     """Performs recommendations based on supplied data and a comparison
     algorithm.
 
     Attributes:
-        data_provider         Data set from which recommendations are made
-        similarity_algorithm  Calculates the similarity between two items
+        data_provider         DataProvider instance
+        similarity_algorithm  SimilarityMetric instance
     """
 
     def __init__(self, data_provider, similarity_algorithm):
-        self.data_provider = data_provider
-        self.similarity_algorithm = similarity_algorithm
+        self.data = data_provider.get_data()
+        self.similarity = similarity_algorithm.get_similarity
 
     def recommend(self, subject):
         """Build a list of recommendations relevant to the subject's
@@ -18,12 +22,28 @@ class Recommender:
         arguments:
             subject The subject for which recommendations are being built
         """
-        pass
+        total_scores = {}
+        score_sums = {}
+        subject_properties = self.data[subject]
+        for item, properties in self.data.items():
+            if item == subject:
+                continue
 
-    def _rank(self, subject):
-        """Finds the closest matches to the subject from the data set.
+            similarity = self.similarity(properties, subject_properties)
 
-        parameters:
-            subject The subject being matched
-        """
-        pass
+            if similarity == 0:
+                continue
+
+            for property in properties.keys():
+                if(property not in subject_properties or
+                   subject_properties[property] == 0):
+
+                    total_scores.setdefault(property, 0)
+                    score_sums.setdefault(property, 0)
+
+                    score_sums[property] += similarity
+                    total_scores[property] += properties[property] * similarity
+
+        recommendations = [(total / score_sums[item], item)
+                           for item, total in total_scores.items()]
+        return sorted(recommendations, key=lambda x: x[0], reverse=True)
