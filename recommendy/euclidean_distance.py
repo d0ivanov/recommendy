@@ -1,3 +1,4 @@
+"""Euclidean distance similarity metric implementation."""
 from similarity_metric import SimilarityMetric
 
 class EuclideanDistance(SimilarityMetric):
@@ -9,7 +10,6 @@ class EuclideanDistance(SimilarityMetric):
         similart the two items are. A result of 1 is a perfect match."""
         sum_of_squares = 0
         common_properties = set(item1.keys()) & set(item2.keys())
-
         if common_properties:
             for property in common_properties:
                 sum_of_squares += (item2[property] - item1[property])**2
