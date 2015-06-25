@@ -1,6 +1,4 @@
 """Main Recommender module."""
-from json_data_provider import JSONDataProvider
-from euclidean_distance import EuclideanDistance
 
 class Recommender:
     """Performs recommendations based on supplied data and a comparison
@@ -12,8 +10,8 @@ class Recommender:
     """
 
     def __init__(self, data_provider, similarity_algorithm):
-        self.data = data_provider.get_data()
-        self.similarity = similarity_algorithm.get_similarity
+        self.__data = data_provider.get_data()
+        self.__similarity = similarity_algorithm
 
     def recommend(self, subject):
         """Build a list of recommendations relevant to the subject's
@@ -24,12 +22,12 @@ class Recommender:
         """
         total_scores = {}
         score_sums = {}
-        subject_properties = self.data[subject]
-        for item, properties in self.data.items():
+        subject_properties = self.__data[subject]
+        for item, properties in self.__data.items():
             if item == subject:
                 continue
 
-            similarity = self.similarity(properties, subject_properties)
+            similarity = self.__similarity(properties, subject_properties)
 
             if similarity == 0:
                 continue
