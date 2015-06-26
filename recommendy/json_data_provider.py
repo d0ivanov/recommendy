@@ -5,13 +5,13 @@ import json
 class JSONDataProvider(DataProvider):
 
     def __init__(self, source):
-        self.source = source
+        super().__init__(source)
 
     def get_data(self):
-        return self._parse_data()
+        return self._fetch_data()
 
     def _fetch_data(self):
-        return urllib.request.urlopen(self.source).read().decode('utf-8')
-
-    def _parse_data(self):
-        return json.loads(self._fetch_data())
+        """Fetches data and returns it. All items must be comprised of
+        properties that have some numeric values."""
+        data = urllib.request.urlopen(self._source).read().decode('utf-8')
+        return json.loads(data)
