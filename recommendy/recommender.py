@@ -11,24 +11,17 @@ class Recommender(object):
     """
 
     def __init__(self, data_provider, similarity_metric):
-        self._provider = data_provider
-        self._similarity = similarity_metric
+        self.__provider = data_provider
+        self.__similarity = similarity_metric
 
-    def get_recommendations(self, subject):
-        raise NotImplementedError
-
-
-class ItemBasedRecommender(Recommender):
-    """TODO: DOC"""
-
-    def get_recommendations(self, subject):
+    def item_based_recommendations(self, subject):
         """Build a list of recommendations relevant to the items's
         properties. Returns a tuple of recommended items.
 
         arguments:
             item The item for which recommendations are being built
         """
-        data = self._provider.get_data()
+        data = self.__provider.get_data()
         total_scores = {}
         score_sums = {}
         subject_properties = data[subject]
@@ -37,7 +30,7 @@ class ItemBasedRecommender(Recommender):
             if subject == item:
                 continue
 
-            similarity = self._similarity(properties, subject_properties)
+            similarity = self.__similarity(properties, subject_properties)
 
             if similarity == 0:
                 continue
@@ -56,17 +49,8 @@ class ItemBasedRecommender(Recommender):
                            for item, total in total_scores.items()]
         return sorted(recommendations, key=lambda x: x[0], reverse=True)
 
-
-class ContentBasedRecommender(Recommender):
-    """TODO: DOC"""
-
-    def __init__(self, data_provider, similarity_metric):
-        super(ContentBasedRecommender, self).__init__(data_provider,
-                                                      similarity_metric)
-        self.__data = data_provider.get_data()
-
-    def get_recommendations(self, subject):
-        ratings = self.__data[subject]
+    def content_based_recommendations(self, subject):
+        ratings = self.__provider.get_content()
         scores = {}
         total_sim = {}
         content_similarities = self.calculate_similarities()
@@ -94,7 +78,7 @@ class ContentBasedRecommender(Recommender):
         arguments:
             limit The max number of top matching items returned"""
         result = {}
-        data = self._provider.transpose_data()
+        data = self.__provider.transposed_content()
         for item in data.keys():
             result[item] = self.__top_matches(item, data, limit)
         return result
@@ -107,6 +91,6 @@ class ContentBasedRecommender(Recommender):
             item The item for which the top matches are calculated
             data The dataset from which scores are pulled
             limit The max number of top matching items returned"""
-        scores = [(self._similarity(data[item], data[other]), other)
+        scores = [(self.__similarity(data[item], data[other]), other)
                   for other in data.keys() if other != item]
         return sorted(scores, key=lambda x: x[0], reverse=True)[:limit]
