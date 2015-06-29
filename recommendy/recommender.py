@@ -1,5 +1,6 @@
 """Main Recommender module."""
 
+
 class Recommender(object):
     """Performs recommendations based on supplied data and a comparison
     algorithm.
@@ -54,6 +55,7 @@ class ItemBasedRecommender(Recommender):
         recommendations = [(total / score_sums[item], item)
                            for item, total in total_scores.items()]
         return sorted(recommendations, key=lambda x: x[0], reverse=True)
+
 
 class ContentBasedRecommender(Recommender):
     """TODO: DOC"""

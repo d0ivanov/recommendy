@@ -1,6 +1,7 @@
 """Contains similarity algorithms used to determine how similar two items are.
 Euclidean distance and Pearson corellation"""
 
+
 def euclidean_distance(item1, item2):
     """Calculates a similarity rating between two data items. Returns
     a float value between 0 and 1. A value of 1 represents a high
@@ -52,9 +53,11 @@ def pearson_corellation(item1, item2):
     else:
         return 0
 
+
 def __factor(score, items_sum, item_count):
     """Helper method for the pearson correlation coefficient algorithm."""
     return score - items_sum/item_count
+
 
 def __get_common_properties(item1, item2):
     """Return the common keys that two maps have"""
