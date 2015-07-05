@@ -25,7 +25,7 @@ class DataHandler(object):
             top_mathces A dictionary containing items that should be updated"""
         raise NotImplementedError
 
-    def transposd_content(self):
+    def transposed_content(self):
         """Transpose the content so that properties become keys
         and keys become properties."""
         result = {}
