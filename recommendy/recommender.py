@@ -50,6 +50,7 @@ class Recommender(object):
         return sorted(recommendations, key=lambda x: x[0], reverse=True)
 
     def content_based_recommendations(self, subject):
+        """TODO: DOC"""
         ratings = self.__provider.get_content()
         scores = {}
         total_sim = {}
