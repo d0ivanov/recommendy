@@ -21,7 +21,7 @@ class Recommender(object):
         arguments:
             item The item for which recommendations are being built
         """
-        data = self.__provider.get_data()
+        data = self.__provider.get_content()
         total_scores = {}
         score_sums = {}
         subject_properties = data[subject]
