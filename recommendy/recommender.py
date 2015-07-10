@@ -51,7 +51,7 @@ class Recommender(object):
 
     def content_based_recommendations(self, subject):
         """TODO: DOC"""
-        ratings = self.__provider.get_content()
+        ratings = self.__provider.get_content()[subject]
         scores = {}
         total_sim = {}
         content_similarities = self.calculate_similarities()

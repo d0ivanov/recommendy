@@ -53,6 +53,19 @@ def pearson_corellation(item1, item2):
     else:
         return 0
 
+def tanimoto_coefficient(item1, item2):
+    """Applicable in cases when similarity is calculated based on the
+    presense or absense of a given characteristic. It's required that
+    item1 and item2 have bitmaps of the characteristics. E.g. 1 corresponds
+    to the presense of a characteristic - 0 to the absence."""
+
+    common_properties = __get_common_properties(item1, item2)
+    item_count = len(common_properties)
+    if item_count == 0:
+        return 0
+
+    return float(item_count/(len(item1) + len(item2) - item_count))
+
 
 def __factor(score, items_sum, item_count):
     """Helper method for the pearson correlation coefficient algorithm."""
