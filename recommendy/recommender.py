@@ -24,41 +24,39 @@ class Recommender(object):
         data = self.__provider.get_content()
         total_scores = {}
         score_sums = {}
-        subject_properties = data[subject]
 
-        for item, properties in data.items():
-            if subject == item:
+        for other in data.keys():
+            if other == subject:
                 continue
 
-            similarity = self.__similarity(properties, subject_properties)
+            similarity = self.__similarity(data[subject], data[other])
 
-            if similarity == 0:
+            if similarity <= 0:
                 continue
 
-            for property in properties.keys():
-                if(property not in subject_properties or
-                   subject_properties[property] == 0):
+            for item in data[other].keys():
+                if item not in data[subject] or data[subject][item] == 0:
+                    total_scores.setdefault(item, 0)
+                    score_sums.setdefault(item, 0)
 
-                    total_scores.setdefault(property, 0)
-                    score_sums.setdefault(property, 0)
+                    total_scores[item] += data[other][item] * similarity
+                    score_sums[item] += similarity
 
-                    score_sums[property] += similarity
-                    total_scores[property] += properties[property] * similarity
-
-        recommendations = [(total / score_sums[item], item)
-                           for item, total in total_scores.items()]
-        return sorted(recommendations, key=lambda x: x[0], reverse=True)
+        rankings = [(total / score_sums[item], item)
+                    for item, total in total_scores.items()]
+        return sorted(rankings, key=lambda x: x[0], reverse=True)
 
     def content_based_recommendations(self, subject):
         """TODO: DOC"""
-        ratings = self.__provider.get_content()[subject]
-        scores = {}
-        total_sim = {}
+        data = self.__provider.get_content()
         content_similarities = self.calculate_similarities()
 
-        for item, rating in ratings.items():
+        scores = {}
+        total_sim = {}
+
+        for item, rating in data[subject].items():
             for similarity, item2 in content_similarities[item]:
-                if item2 in ratings:
+                if item2 in data[subject]:
                     continue
 
                 scores.setdefault(item2, 0)
