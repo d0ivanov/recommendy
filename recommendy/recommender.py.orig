@@ -8,6 +8,7 @@ class Recommender(object):
     Attributes:
         data_provider         DataProvider instance
         similarity_algorithm  SimilarityMetric instance"""
+
     def __init__(self, data_provider, similarity_metric):
         self.__provider = data_provider
         self.__similarity = similarity_metric
@@ -61,6 +62,7 @@ class Recommender(object):
         if content_similarities == {}:
             content_similarities = self.calculate_similarities(transposed,
                                                                limit=10)
+
         total_scores = {}
         score_sums = {}
 
@@ -93,6 +95,7 @@ class Recommender(object):
         result = {}
         for item in data.keys():
             result[item] = self.__top_matches(item, data, limit)
+
         if subject == "":
             return result
         return result[subject]
@@ -104,8 +107,12 @@ class Recommender(object):
         arguments:
             item The item for which the top matches are calculated
             data The dataset from which scores are pulled
+<<<<<<< HEAD
+            limit The max number of top matching items returned"""
+=======
             limit The max number of top matching items returned, if 0 all
                   results are returned"""
+>>>>>>> recommender
         scores = [(self.__similarity(data[item], data[other]), other)
                   for other in data.keys() if other != item]
         if limit == 0:
