@@ -1,7 +1,7 @@
 # recommendy
 
 ##Usage
-
+```
 data_hander = JSONDataHandler("http://your_data_resource")
 similarity_metric = pearson_corellation
 racommender = Recommender(data_handler, similarity_metric)
@@ -10,9 +10,8 @@ racommender = Recommender(data_handler, similarity_metric)
       recommender.item_based_recommendations("<subject_to_get_recommendations_for>")
 
   * For content based recommendations:
-
-    recommender.content_based_recommendations("<subject_to_get_recommendations_for>")
-
+      recommender.content_based_recommendations("<subject_to_get_recommendations_for>")
+```
 ##Similarity metrics
 
 There are three similarity metrics currently built in the recommender:
@@ -33,7 +32,7 @@ return a number between 0 and 1.
 
 ##Data Providers
 The recommender relies on a data provider to feed it necessairy data in order to make recommendations. Check the
-data_handler interface to see what methods each data provider must implement. There are currently two abstract data
+[data handler](https://github.com/d0ivanov/recommendy/blob/master/recommendy/data_handler.py) interface to see what methods each data provider must implement. There are currently two abstract data
 handlers - XMLDataHandler and JSONDataHandler, but as long as it implements the data handler interface, you can pass
 to the recommender whatever classes you find most suitable.
 
