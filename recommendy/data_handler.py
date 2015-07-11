@@ -7,12 +7,14 @@ class DataHandler(object):
 
     def get_content(self):
         """Returns a dictionary containing the data on which recommendations
-        are based."""
+        are based. If for some reason data cannot be retrieved a
+        UnableToFetchDataError should be raised."""
         raise NotImplementedError
 
     def get_top_matching_items(self, item, limit):
         """Returns a dictionary containing the top matching items to
-        a given item.
+        a given item. If for some reason data cannot be retrieved a
+        UnableToFetchDataError should be raised.
 
         parameters:
             item The item for which the top matches are returned
@@ -21,7 +23,8 @@ class DataHandler(object):
         raise NotImplementedError
 
     def update_top_matching_items(self, top_matches):
-        """Save updated data for item similarities
+        """Save updated data for item similarities. If data cannot be updated
+        for some reason a UnableToPostDataError should be raised.
 
         parameters:
             top_mathces A dictionary containing items that should be updated"""

@@ -1,5 +1,8 @@
 """Main Recommender module."""
 
+from exceptions import RecommendationDataUnavailableError
+from exceptions import DataError
+
 
 class Recommender(object):
     """Performs recommendations based on supplied data and a comparison
@@ -20,10 +23,17 @@ class Recommender(object):
 
         arguments:
             item The item for which recommendations are being built"""
-        data = self.__provider.get_content()
+        data = {}
+        top_similarities = {}
+
+        try:
+            data = self.__provider.get_content()
+            top_similarities = self.__provider.get_top_matching_items(subject)
+        except DataError:
+            raise RecommendationDataUnavailableError
+
         total_scores = {}
         score_sums = {}
-        top_similarities = self.__provider.get_top_matching_items(subject)
 
         if top_similarities == {}:
             top_similarities = self.calculate_similarities(data, subject, 10)
@@ -53,10 +63,16 @@ class Recommender(object):
 
         arguments:
             item The item for which recommendations are being built"""
-        data = self.__provider.get_content()
-        transposed = self.__provider.transposed_content()
 
-        content_similarities = self.__provider.get_top_matching_items()
+        data = {}
+        content_similarities = {}
+        try:
+            data = self.__provider.get_content()
+            content_similarities = self.__provider.get_top_matching_items()
+        except DataError:
+            raise RecommendationDataUnavailableError
+
+        transposed = self.__provider.transposed_content()
 
         if content_similarities == {}:
             content_similarities = self.calculate_similarities(transposed,
