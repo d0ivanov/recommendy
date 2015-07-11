@@ -86,8 +86,8 @@ class Recommender(object):
 
         arguments:
             data The poll from which to calculate the most similar items
-            subject The subject we want to return results for. If left blank all
-                    results are returned.
+            subject The subject we want to return results for. If left blank
+                    all results are returned.
             limit The max number of top matching items returnedi. If 0 all
                   reslts are returned."""
         result = {}

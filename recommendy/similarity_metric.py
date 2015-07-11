@@ -53,6 +53,7 @@ def pearson_corellation(item1, item2):
     else:
         return 0
 
+
 def tanimoto_coefficient(item1, item2):
     """Applicable in cases when similarity is calculated based on the
     presense or absense of a given characteristic. It's required that

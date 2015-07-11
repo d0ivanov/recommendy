@@ -39,4 +39,3 @@ class XMLDataHandler(DataHandler):
         update_request.add_header("Content-Type",
                                   "application/xml;charset=utf-8")
         request.urlopen(update_request, data.encode("utf-8"))
-
