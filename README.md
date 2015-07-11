@@ -4,15 +4,14 @@
 
 data_hander = JSONDataHandler("http://your_data_resource")
 similarity_metric = pearson_corellation
-
 racommender = Recommender(data_handler, similarity_metric)
 
-To get item based recommendations:
-recommender.item_based_recommendations("<subject_to_get_recommendations_for>")
+  * To get item based recommendations:
+      recommender.item_based_recommendations("<subject_to_get_recommendations_for>")
 
-For content based recommendations:
+  * For content based recommendations:
 
-recommender.content_based_recommendations("<subject_to_get_recommendations_for>")
+    recommender.content_based_recommendations("<subject_to_get_recommendations_for>")
 
 ##Similarity metrics
 
