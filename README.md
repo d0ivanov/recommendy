@@ -5,19 +5,24 @@
 data_hander = JSONDataHandler("http://your_data_resource")
 similarity_metric = pearson_corellation
 racommender = Recommender(data_handler, similarity_metric)
+```
 
   * To get item based recommendations:
+```
       recommender.item_based_recommendations("<subject_to_get_recommendations_for>")
-
+```
   * For content based recommendations:
+```
       recommender.content_based_recommendations("<subject_to_get_recommendations_for>")
 ```
+
 ##Similarity metrics
 
 There are three similarity metrics currently built in the recommender:
  * euclidean distance
  * pearson corellation coefficient
  * tanimoto score
+
 Euclidean distance and pearson corellation coefficient can be used when calculating
 similarities based on given scores, for example when users rate movies.
 
