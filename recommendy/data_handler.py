@@ -10,12 +10,14 @@ class DataHandler(object):
         are based."""
         raise NotImplementedError
 
-    def get_top_matching_items(self, item):
+    def get_top_matching_items(self, item, limit):
         """Returns a dictionary containing the top matching items to
         a given item.
 
         parameters:
-            item The item for which the top matches are returned"""
+            item The item for which the top matches are returned
+            limit The max number of results returned, if 0 should
+                  return all results found"""
         raise NotImplementedError
 
     def update_top_matching_items(self, top_matches):

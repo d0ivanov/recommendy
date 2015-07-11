@@ -15,7 +15,7 @@ class JSONDataHandler(DataHandler):
     def get_content(self):
         raise NotImplementedError
 
-    def get_top_matching_items(self, item):
+    def get_top_matching_items(self, item, limit):
         raise NotImplementedError
 
     def update_top_matching_items(self, top_matches):
